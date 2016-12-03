@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         bf5.setOnClickListener(handlerF5);
 
         sb = (SeekBar) findViewById(R.id.seekBar);
-        sb.setOnTouchListener(handlerSeekbar);
+        sb.setOnSeekBarChangeListener(handlerSeekbar);
     }
     View.OnClickListener handlerPlay1 = new View.OnClickListener() {
         public void onClick(View v) {
@@ -125,17 +125,24 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "F5", Toast.LENGTH_SHORT).show();
         }
     };
-    SeekBar.OnTouchListener handlerSeekbar = new SeekBar.OnTouchListener () {
+    SeekBar.OnSeekBarChangeListener handlerSeekbar = new SeekBar.OnSeekBarChangeListener() {
         @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
             // TCP Connector
-            Toast.makeText(MainActivity.this, "Seekbar: " + ((int) sb.getProgress()), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "Seekbar: " + ((int) sb.getProgress()), Toast.LENGTH_SHORT).show();
             TCPClient tcp = new TCPClient(IP_ADDRESS,PORT, "");
 
-            return false;
         }
 
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
 
     };
 
