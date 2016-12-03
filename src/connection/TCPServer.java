@@ -12,9 +12,11 @@ public class TCPServer extends Thread {
 	int port;
 	ServerSocket server;
 	Socket socket;
+	TCPConnector con;
 	
-	public TCPServer(int port){
+	public TCPServer(int port, TCPConnector con){
 		this.port = port;
+		this.con = con;
 	}
 	
 	public void killTCPServer(){
@@ -38,6 +40,7 @@ public class TCPServer extends Thread {
 	                    //--------------------------------------------
 	                    
 	                    System.out.println(item.getPayload());
+	                    con.executeAppOrder(item);
 	                    
 	                    //--------------------------------------------
 	                    System.out.println("[+]-end reading-");
