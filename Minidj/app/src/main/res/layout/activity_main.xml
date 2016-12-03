@@ -13,7 +13,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -35,26 +37,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <Button
-                        android:text="Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ImageButton
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:id="@+id/bPlay1"
-                        android:layout_weight="1" />
+                        android:src="@android:drawable/ic_media_play" />
 
-                    <Button
+                    <ImageButton
                         android:text="Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:id="@+id/bStop1"
-                        android:layout_weight="1" />
+                        android:src="@drawable/ic_media_stop" />
 
-                    <Button
+                    <ImageButton
                         android:text="Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:id="@+id/bPause1"
-                        android:layout_weight="1" />
+                        android:src="@android:drawable/ic_media_pause" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -74,25 +75,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <Button
+                    <ImageButton
                         android:text="Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/bPlay2" />
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:id="@+id/bPlay2"
+                        android:src="@android:drawable/ic_media_play"/>
 
-                    <Button
+                    <ImageButton
                         android:text="Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:id="@+id/bStop2"
-                        android:layout_weight="1" />
+                        android:src="@drawable/ic_media_stop" />
 
-                    <Button
+                    <ImageButton
                         android:text="Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:id="@+id/bPause2"
-                        android:layout_weight="1" />
+                        android:src="@android:drawable/ic_media_pause" />
 
                 </LinearLayout>
 
@@ -150,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/seekBar"
-                android:max="100"
+                android:max="140"
                 android:progress="50" />
 
         </LinearLayout>
