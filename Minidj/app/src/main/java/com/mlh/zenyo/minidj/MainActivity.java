@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
+import logic.Item;
+import android.os.StrictMode;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int PORT = 6080;
-    private static final String IP_ADDRESS = "172.22.211.168";
+    private static final String IP_ADDRESS = "172.22.220.191";
     private ImageButton bplay1;
     private ImageButton bplay2;
     private ImageButton bstop1;
@@ -25,11 +27,17 @@ public class MainActivity extends AppCompatActivity {
     private Button bf4;
     private Button bf5;
     private SeekBar sb;
+    private TCPClient tcp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         bplay1 = (ImageButton) findViewById(R.id.bPlay1);
         bplay1.setOnClickListener(handlerPlay1);
         bplay2 = (ImageButton) findViewById(R.id.bPlay2);
@@ -58,79 +66,117 @@ public class MainActivity extends AppCompatActivity {
 
         sb = (SeekBar) findViewById(R.id.seekBar);
         sb.setOnSeekBarChangeListener(handlerSeekbar);
+
+
     }
     View.OnClickListener handlerPlay1 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector Play
+            Item item = new Item();
+            item.setPayload("play1");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "Play1", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerPlay2 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector Play
+            Item item = new Item();
+            item.setPayload("play2");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "Play2", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerStop1 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("stop1");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "Stop1", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerStop2 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("stop2");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "Stop2", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerPause1 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("pause1");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "Pause1", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerPause2 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("pause2");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "Pause2", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerF1 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("customkey1");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "F1", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerF2 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("customkey2");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "F2", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerF3 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("customkey3");
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "F3", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerF4 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("customkey4");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "F4", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener handlerF5 = new View.OnClickListener() {
         public void onClick(View v) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("customkey5");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             Toast.makeText(MainActivity.this, "F5", Toast.LENGTH_SHORT).show();
         }
     };
     SeekBar.OnSeekBarChangeListener handlerSeekbar = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            // TCP Connector
+            Item item = new Item();
+            item.setPayload("volume");
+            item.setvolume(((int) sb.getProgress()));
+            tcp = new TCPClient(IP_ADDRESS,PORT);
+            tcp.send(item);
             //Toast.makeText(MainActivity.this, "Seekbar: " + ((int) sb.getProgress()), Toast.LENGTH_SHORT).show();
-            TCPClient tcp = new TCPClient(IP_ADDRESS,PORT, "");
+
 
         }
 
