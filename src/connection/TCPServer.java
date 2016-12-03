@@ -8,11 +8,7 @@ import java.net.Socket;
 import logic.Item;
 
 public class TCPServer extends Thread {
-	
-	public static void main(String[] args){
-		TCPConnector con = new TCPConnector(null);
-		con.startTCPServer(6080);
-	}
+
 	
 	boolean running = true;
 	int port;

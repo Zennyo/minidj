@@ -9,7 +9,7 @@ public class Item implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	String payload;
-	int volume;
+	double volume;
 	String track;
     public Item(){
     }
@@ -19,11 +19,14 @@ public class Item implements Serializable{
     public void setTrack(String track){
         this.track = track;
     }
-    public void setvolume(int volume){
+    public void setvolume(double volume){
         this.volume = volume;
     }
     public String getPayload(){
         return this.payload;
+    }
+    public double getVolume(){
+    	return volume;
     }
 
 }

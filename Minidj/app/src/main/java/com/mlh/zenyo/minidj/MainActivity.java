@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Item item = new Item();
             item.setPayload("customkey3");
+            tcp = new TCPClient(IP_ADDRESS,PORT);
             tcp.send(item);
             Toast.makeText(MainActivity.this, "F3", Toast.LENGTH_SHORT).show();
         }
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
             Item item = new Item();
             item.setPayload("volume");
-            item.setvolume(((int) sb.getProgress()));
+            item.setvolume(((double) sb.getProgress()));
             tcp = new TCPClient(IP_ADDRESS,PORT);
             tcp.send(item);
             //Toast.makeText(MainActivity.this, "Seekbar: " + ((int) sb.getProgress()), Toast.LENGTH_SHORT).show();

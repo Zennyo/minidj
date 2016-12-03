@@ -3,6 +3,7 @@ package logic;
 import java.io.File;
 import java.net.URL;
 
+import connection.TCPConnector;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -28,23 +29,26 @@ import javafx.stage.Stage;
 public class Player extends Application{
 	
 	//Erste Lied
-    String musicFile = "C:/Users/Djámel/Desktop/hackDay/emi.mp3";     // For example
+    static String musicFile = "C:/Users/Zenyo/Desktop/03. Splitting The Atom.mp3";     // For example
 
-    Media sound = new Media(new File(musicFile).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    public static Media sound = new Media(new File(musicFile).toURI().toString());
+    public static MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
     //Zweite Lied
-    String soundFile = "C:/Users/Djámel/Desktop/hackDay/kollegah.mp3";     // For example
+    static String soundFile = "C:/Users/Zenyo/Desktop/04 - Dry Run.mp3";     // For example
 
-    Media secondSound = new Media(new File(soundFile).toURI().toString());
-    MediaPlayer mediaPlayer2 = new MediaPlayer(secondSound);
+    public static Media secondSound = new Media(new File(soundFile).toURI().toString());
+    public static MediaPlayer mediaPlayer2 = new MediaPlayer(secondSound);
 	
 	 public static void main(String[] args) {
         System.out.println( "Main method inside Thread : " +  Thread.currentThread().getName());
+        Player player = new Player();
+        TCPConnector con = new TCPConnector();
+		con.startTCPServer(6080);
         launch(args);
     }
 	 
-	 public void spielenPlayer(MediaPlayer m){
+	 public static void spielenPlayer(MediaPlayer m){
 			Status status = m.getStatus();
 	
 			if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
@@ -54,7 +58,7 @@ public class Player extends Application{
 			} 
 		}
 	 
-	 public void pausePlayer1(MediaPlayer m){
+	 public static void pausePlayer(MediaPlayer m){
 			Status status = m.getStatus();
 
 			if (status == Status.PLAYING) {
@@ -63,7 +67,7 @@ public class Player extends Application{
 
 			} 
 		}
-	 public void stopPlayer1(MediaPlayer m){
+	 public static void stopPlayer(MediaPlayer m){
 			Status status = m.getStatus();
 
 			if (status == Status.PLAYING) {
@@ -73,7 +77,7 @@ public class Player extends Application{
 			}
 		}
 	 
-	 public void volume(MediaPlayer m){
+	 public static void volume(MediaPlayer m){
 		
 	 }
 	
@@ -145,7 +149,7 @@ public class Player extends Application{
         root.getChildren().add(linksView);
         root.getChildren().add(rechtView);
         
-        spielenPlayer(mediaPlayer);
+        /*spielenPlayer(mediaPlayer);
         pausePlayer1(mediaPlayer);
         stopPlayer1(mediaPlayer);
         
@@ -157,7 +161,7 @@ public class Player extends Application{
         mediaPlayer2.setVolume(0.0);
         
         mediaPlayer.play();
-        mediaPlayer2.play();
+        mediaPlayer2.play();*/
         
         monStage.show();   	
 
