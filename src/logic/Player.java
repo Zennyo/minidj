@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -26,13 +27,13 @@ import javafx.stage.Stage;
 
 public class Player extends Application{
 	
-	   //Audio Player starten
+	//Erste Lied
     String musicFile = "C:/Users/Djámel/Desktop/hackDay/emi.mp3";     // For example
 
     Media sound = new Media(new File(musicFile).toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
-    //Zweite Player
+    //Zweite Lied
     String soundFile = "C:/Users/Djámel/Desktop/hackDay/kollegah.mp3";     // For example
 
     Media secondSound = new Media(new File(soundFile).toURI().toString());
@@ -72,36 +73,10 @@ public class Player extends Application{
 			}
 		}
 	 
-	 public void spielenPlayer2(MediaPlayer m){
-			Status status = m.getStatus();
+	 public void volume(MediaPlayer m){
+		
+	 }
 	
-			if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-	
-				m.play();
-	
-			} 
-		}
-	 
-	 public void pausePlayer2(MediaPlayer m){
-			Status status = m.getStatus();
-
-			if (status == Status.PLAYING) {
-
-				m.pause();
-
-			} 
-		}
-	 
-	 public void stopPlayer2(MediaPlayer m){
-			Status status = m.getStatus();
-
-			if (status == Status.PLAYING) {
-
-				m.stop();
-
-			}
-		}
-	 
 	 @Override
     public void start(Stage monStage) throws Exception {
 
@@ -120,21 +95,17 @@ public class Player extends Application{
        Rectangle rec0 = new Rectangle();
        Rectangle rec1 = new Rectangle();
        Text welcome = new Text(90, 42, "Wilkommen auf dein Minidj App: Music hören einfach machen");
-//       Text title = new Text(50, 25, "Artist: \n Title : ");
        
         //Welcome Texte
         welcome.setFont(new Font(20));
         welcome.setFill(Color.BLACK);
-//        title.setFont(new Font(40));
-//        title.setFill(Color.WHITE);
-//        title.setY(120);
-        
+
         LinearGradient lg1 = new LinearGradient(5, 0, 1, 0, true, CycleMethod.NO_CYCLE);
         
         //Disc
         disc.setCenterX(600);
         disc.setCenterY(230);
-        disc.setFill(lg1);
+        //disc.setFill(lg1);
         disc1.setCenterX(180);
         disc1.setCenterY(230);
         
@@ -181,6 +152,12 @@ public class Player extends Application{
         spielenPlayer(mediaPlayer2);
         pausePlayer1(mediaPlayer2);
         stopPlayer1(mediaPlayer2);
+        
+        mediaPlayer.setVolume(100.0);
+        mediaPlayer2.setVolume(0.0);
+        
+        mediaPlayer.play();
+        mediaPlayer2.play();
         
         monStage.show();   	
 
