@@ -5,47 +5,76 @@ import java.io.*;
 import java.net.*;
 
 public class TCPConnector {
-	String ip;
-	int port;
 	
-	public TCPConnector(int port){
-		this.port = port;
+	TCPServer tcpServer;
+	Player player;
+	
+	public TCPConnector(Player player){
+		this.player = player;
 	}
 	
-	public void listen(){
-		try {
-			ServerSocket server = new ServerSocket(port);
-			System.out.println("[+] -wait for accept-");
-			Socket socket = server.accept();
-			try {
-				System.out.println("[+] -accepted-");
-                ObjectInputStream objectInput = new ObjectInputStream(socket.getInputStream());
-                try {
-                    Object object =(Item) objectInput.readObject();
-                    Item tmp = (Item) object;
-                    System.out.println(tmp.getPayload());
-                    System.out.println("[+] -end-");
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }  
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void executeAppOrder(Item item){
+		String pushedButton = item.getPayload();
+		switch(pushedButton){
 		
+			case "play1":
+				break;
+			case "pause1":
+				break;
+			case "stop1":
+				break;
+				
+				
+			case "play2":
+				break;
+			case "pause2":
+				break;
+			case "stop2":
+				break;
+				
+				
+			case "customkey1":
+				break;
+			case "customkey2":
+				break;
+			case "customkey3":
+				break;
+			case "customkey4":
+				break;
+			case "customkey5":
+				break;
+				
+			case"newTrack1":
+				break;
+			case"newTrack2":
+				break;
+				
+			case"volume":
+				break;
+		}
 	}
 	
 	
-	
-	
-	public static void main(String[] args){
-		TCPConnector con = new TCPConnector(6789);
-		System.out.println("[+] -start listen-");
-		con.listen();	
+	public void sendPlaylistToClient(Playlist playlist, String ip, int port){
+        try {
+            Socket clientSocket = new Socket(ip, port);
+            ObjectOutputStream outputToServer = new ObjectOutputStream(clientSocket.getOutputStream());
+            outputToServer.writeObject(playlist);
+            outputToServer.close();
+            clientSocket.close();
+        }
+        catch (java.io.IOException e){
+            e.printStackTrace();
+        }
 	}
 	
+	
+	public void startTCPServer(int port){
+		tcpServer = new TCPServer(port, this);
+		tcpServer.start();
+	}
+	
+	public void stopTCPServer(){
+		tcpServer.killTCPServer();
+	}
 }

@@ -20,6 +20,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
 import javafx.stage.Stage;
 
 public class Player extends Application{
@@ -114,37 +116,27 @@ public class Player extends Application{
        
        // Component definition
        Circle disc = new Circle(150, Color.web("black", 0.9));
+       Circle disc1 = new Circle(150, Color.web("black", 0.9));
        Rectangle rec0 = new Rectangle();
        Rectangle rec1 = new Rectangle();
-//       Rectangle rec2 = new Rectangle();
        Text welcome = new Text(90, 42, "Wilkommen auf dein Minidj App: Music hören einfach machen");
-//      Text artist = new Text(0, 35, "Artist : ");
-       Text title = new Text(50, 25, "Artist: \n Title : ");
+//       Text title = new Text(50, 25, "Artist: \n Title : ");
        
         //Welcome Texte
         welcome.setFont(new Font(20));
         welcome.setFill(Color.BLACK);
-        title.setFont(new Font(40));
-        title.setFill(Color.WHITE);
-        title.setY(120);
+//        title.setFont(new Font(40));
+//        title.setFill(Color.WHITE);
+//        title.setY(120);
         
+        LinearGradient lg1 = new LinearGradient(5, 0, 1, 0, true, CycleMethod.NO_CYCLE);
         
         //Disc
         disc.setCenterX(600);
         disc.setCenterY(230);
-        
-        //Rec1
-        rec1.setX(30);
-
-       rec1.setY(75);
-
-       rec1.setWidth(350);
-
-       rec1.setHeight(300);
-
-        rec1.setFill(Color.TRANSPARENT);
-
-        rec1.setStroke(Color.WHITE);
+        disc.setFill(lg1);
+        disc1.setCenterX(180);
+        disc1.setCenterY(230);
         
         //Rec3
         rec0.setX(45);
@@ -168,13 +160,13 @@ public class Player extends Application{
         header.getChildren().add(rec0);
         header.getChildren().add(welcome);
         
-        rechtView.getChildren().add(rec1);
-        rechtView.getChildren().add(title);
+        rechtView.getChildren().add(disc1);
+//        rechtView.getChildren().add(title);
 //        rechtView.getChildren().add(artist);
         
         
         linksView.getChildren().add(disc);
-        linksView.getChildren().add(title);
+//        linksView.getChildren().add(title);
 //        linksView.getChildren().add(artist);
 
 	    
