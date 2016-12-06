@@ -1,26 +1,14 @@
 package logic;
 
-import java.io.File;
-import java.net.URL;
+import java.net.Inet4Address;
 
 import connection.TCPConnector;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -28,66 +16,77 @@ import javafx.stage.Stage;
 
 public class Player extends Application{
 	
-	//Erste Lied
-    static String musicFile = "C:/Users/Zenyo/Desktop/03. Splitting The Atom.mp3";     // For example
-
-    public static Media sound = new Media(new File(musicFile).toURI().toString());
-    public static MediaPlayer mediaPlayer = new MediaPlayer(sound);
+	
+    private static MediaPlayer leftPlayer;
+    private static MediaPlayer rightPlayer;
+    public static enum RECORD{
+    	LEFT,RIGHT
+    }
     
-    //Zweite Lied
-    static String soundFile = "C:/Users/Zenyo/Desktop/04 - Dry Run.mp3";     // For example
-
-    public static Media secondSound = new Media(new File(soundFile).toURI().toString());
-    public static MediaPlayer mediaPlayer2 = new MediaPlayer(secondSound);
 	
 	 public static void main(String[] args) {
-        System.out.println( "Main method inside Thread : " +  Thread.currentThread().getName());
-        Player player = new Player();
         TCPConnector con = new TCPConnector();
 		con.startTCPServer(6080);
         launch(args);
     }
 	 
-	 public static void spielenPlayer(MediaPlayer m){
-			Status status = m.getStatus();
-	
-			if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-	
-				m.play();
-	
-			} 
-		}
-	 
-	 public static void pausePlayer(MediaPlayer m){
-			Status status = m.getStatus();
-
-			if (status == Status.PLAYING) {
-
-				m.pause();
-
-			} 
-		}
-	 public static void stopPlayer(MediaPlayer m){
-			Status status = m.getStatus();
-
-			if (status == Status.PLAYING) {
-
-				m.stop();
-
+	 public static void play(RECORD record){
+			switch(record){
+				case LEFT:
+					leftPlayer.play();
+					leftPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+					break;
+				case RIGHT:
+					rightPlayer.play();
+					rightPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+					break;
+				
 			}
 		}
 	 
-	 public static void volume(MediaPlayer m){
+	 public static void pause(RECORD record){
+		 switch(record){
+			case LEFT:
+				leftPlayer.pause();
+				break;
+			case RIGHT:
+				rightPlayer.pause();
+				break;
+			
+		}
+		}
+	 public static void stop(RECORD record){
+		 switch(record){
+			case LEFT:
+				leftPlayer.stop();
+				break;
+			case RIGHT:
+				rightPlayer.stop();
+				break;
+			
+		}
+		}
+	 
+	 public static void volume(RECORD record, double volume){
+		 switch(record){
+			case LEFT:
+				leftPlayer.setVolume(volume);
+				break;
+			case RIGHT:
+				rightPlayer.setVolume(volume);
+				break;
+			
+		}
 		
 	 }
 	
 	 @Override
     public void start(Stage monStage) throws Exception {
 
-        monStage.setTitle("Mini Dj Player");
+        monStage.setTitle(Inet4Address.getLocalHost().getHostAddress());
        
        Group root = new Group();
-       Scene maScene = new Scene(root, 800, 400, Color.ORANGE);
+       Scene maScene = new Scene(root, 800, 400, Color.GRAY);
        monStage.setScene(maScene);
        Group header = new Group();
        Group rechtView = new Group();
@@ -98,18 +97,13 @@ public class Player extends Application{
        Circle disc1 = new Circle(150, Color.web("black", 0.9));
        Rectangle rec0 = new Rectangle();
        Rectangle rec1 = new Rectangle();
-       Text welcome = new Text(90, 42, "Wilkommen auf dein Minidj App: Music hören einfach machen");
        
-        //Welcome Texte
-        welcome.setFont(new Font(20));
-        welcome.setFill(Color.BLACK);
 
         LinearGradient lg1 = new LinearGradient(5, 0, 1, 0, true, CycleMethod.NO_CYCLE);
         
         //Disc
         disc.setCenterX(600);
         disc.setCenterY(230);
-        //disc.setFill(lg1);
         disc1.setCenterX(180);
         disc1.setCenterY(230);
         
@@ -129,39 +123,17 @@ public class Player extends Application{
 //        rec0.setStrokeWidth(5);
 
         rec0.setArcHeight(30);
-
         rec0.setArcWidth(30);
        
         header.getChildren().add(rec0);
-        header.getChildren().add(welcome);
         
         rechtView.getChildren().add(disc1);
-//        rechtView.getChildren().add(title);
-//        rechtView.getChildren().add(artist);
-        
-        
         linksView.getChildren().add(disc);
-//        linksView.getChildren().add(title);
-//        linksView.getChildren().add(artist);
 
 	    
-        root.getChildren().add(header);
         root.getChildren().add(linksView);
         root.getChildren().add(rechtView);
         
-        /*spielenPlayer(mediaPlayer);
-        pausePlayer1(mediaPlayer);
-        stopPlayer1(mediaPlayer);
-        
-        spielenPlayer(mediaPlayer2);
-        pausePlayer1(mediaPlayer2);
-        stopPlayer1(mediaPlayer2);
-        
-        mediaPlayer.setVolume(100.0);
-        mediaPlayer2.setVolume(0.0);
-        
-        mediaPlayer.play();
-        mediaPlayer2.play();*/
         
         monStage.show();   	
 

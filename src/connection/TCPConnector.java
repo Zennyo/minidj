@@ -1,6 +1,8 @@
 package connection;
 
 import logic.*;
+import logic.Player.RECORD;
+
 import java.io.*;
 import java.net.*;
 
@@ -20,24 +22,24 @@ public class TCPConnector {
 		switch(pushedButton){
 		
 			case "play1":
-				Player.spielenPlayer(Player.mediaPlayer);
+				Player.play(RECORD.LEFT);
 				break;
 			case "pause1":
-				Player.pausePlayer(Player.mediaPlayer);
+				Player.pause(RECORD.LEFT);
 				break;
 			case "stop1":
-				Player.stopPlayer(Player.mediaPlayer);
+				Player.stop(RECORD.LEFT);
 				break;
 				
 				
 			case "play2":
-				Player.spielenPlayer(Player.mediaPlayer2);
+				Player.play(RECORD.RIGHT);
 				break;
 			case "pause2":
-				Player.pausePlayer(Player.mediaPlayer2);
+				Player.pause(RECORD.RIGHT);
 				break;
 			case "stop2":
-				Player.stopPlayer(Player.mediaPlayer2);
+				Player.stop(RECORD.RIGHT);
 				break;
 				
 				
@@ -59,8 +61,9 @@ public class TCPConnector {
 				
 			case"volume":
 				System.out.println(item.getVolume());
-				Player.mediaPlayer.setVolume(1-(item.getVolume()/100));
-				Player.mediaPlayer2.setVolume(0+(item.getVolume()/100));
+				
+				Player.volume(RECORD.LEFT,1-(item.getVolume()/100));
+				Player.volume(RECORD.RIGHT,0+(item.getVolume()/100));
 				break;
 		}
 	}

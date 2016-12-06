@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import android.os.StrictMode;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PORT = 6080;
-    private static final String IP_ADDRESS = "172.22.220.191";
+    private static String IP_ADDRESS = "";
     private ImageButton bplay1;
     private ImageButton bplay2;
     private ImageButton bstop1;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private Button bf3;
     private Button bf4;
     private Button bf5;
+    private Button ipset;
+    private Button ipunset;
     private SeekBar sb;
     private TCPClient tcp;
 
@@ -64,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         bf5 = (Button) findViewById(R.id.bf5);
         bf5.setOnClickListener(handlerF5);
 
+        ipset = (Button) findViewById(R.id.IP_Button);
+        ipset.setOnClickListener(handlerSet);
+        ipunset = (Button)findViewById(R.id.unSet);
+        ipunset.setOnClickListener(handlerunSet);
         sb = (SeekBar) findViewById(R.id.seekBar);
         sb.setOnSeekBarChangeListener(handlerSeekbar);
 
@@ -166,6 +173,20 @@ public class MainActivity extends AppCompatActivity {
             tcp = new TCPClient(IP_ADDRESS,PORT);
             tcp.send(item);
             Toast.makeText(MainActivity.this, "F5", Toast.LENGTH_SHORT).show();
+        }
+    };
+    View.OnClickListener handlerSet = new View.OnClickListener() {
+        public void onClick(View v) {
+            EditText txt = (EditText)findViewById(R.id.IP_Input);
+            IP_ADDRESS = txt.getText().toString();
+            findViewById(R.id.IP_Input).setEnabled(false);
+            Toast.makeText(MainActivity.this, "SET "+IP_ADDRESS, Toast.LENGTH_SHORT).show();
+        }
+    };
+    View.OnClickListener handlerunSet = new View.OnClickListener() {
+        public void onClick(View v) {
+            findViewById(R.id.IP_Input).setEnabled(true);
+            Toast.makeText(MainActivity.this, "UNSET", Toast.LENGTH_SHORT).show();
         }
     };
     SeekBar.OnSeekBarChangeListener handlerSeekbar = new SeekBar.OnSeekBarChangeListener() {
